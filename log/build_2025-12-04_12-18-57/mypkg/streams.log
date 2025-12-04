@@ -1,0 +1,42 @@
+[0.713s] Invoking command in '/home/ando/ros2_ws/src/mypkg': CONDA_PROMPT_MODIFIER=(base) PYTHONPATH=/home/ando/ros2_ws/src/mypkg/build/mypkg/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ando/ros2_ws/src/mypkg/install/mypkg/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base build/mypkg build --build-base /home/ando/ros2_ws/src/mypkg/build/mypkg/build install --record /home/ando/ros2_ws/src/mypkg/build/mypkg/install.log --single-version-externally-managed install_data
+[0.851s] running egg_info
+[0.852s] creating build/mypkg/mypkg.egg-info
+[0.860s] writing build/mypkg/mypkg.egg-info/PKG-INFO
+[0.860s] writing dependency_links to build/mypkg/mypkg.egg-info/dependency_links.txt
+[0.861s] writing entry points to build/mypkg/mypkg.egg-info/entry_points.txt
+[0.861s] writing requirements to build/mypkg/mypkg.egg-info/requires.txt
+[0.861s] writing top-level names to build/mypkg/mypkg.egg-info/top_level.txt
+[0.861s] writing manifest file 'build/mypkg/mypkg.egg-info/SOURCES.txt'
+[0.880s] reading manifest file 'build/mypkg/mypkg.egg-info/SOURCES.txt'
+[0.881s] writing manifest file 'build/mypkg/mypkg.egg-info/SOURCES.txt'
+[0.881s] running build
+[0.881s] running build_py
+[0.881s] creating /home/ando/ros2_ws/src/mypkg/build/mypkg/build
+[0.881s] creating /home/ando/ros2_ws/src/mypkg/build/mypkg/build/lib
+[0.881s] creating /home/ando/ros2_ws/src/mypkg/build/mypkg/build/lib/mypkg
+[0.882s] copying mypkg/talker.py -> /home/ando/ros2_ws/src/mypkg/build/mypkg/build/lib/mypkg
+[0.882s] copying mypkg/__init__.py -> /home/ando/ros2_ws/src/mypkg/build/mypkg/build/lib/mypkg
+[0.882s] copying mypkg/listener.py -> /home/ando/ros2_ws/src/mypkg/build/mypkg/build/lib/mypkg
+[0.882s] running install
+[0.886s] running install_lib
+[0.895s] creating /home/ando/ros2_ws/src/mypkg/install/mypkg/lib/python3.12/site-packages/mypkg
+[0.895s] copying /home/ando/ros2_ws/src/mypkg/build/mypkg/build/lib/mypkg/talker.py -> /home/ando/ros2_ws/src/mypkg/install/mypkg/lib/python3.12/site-packages/mypkg
+[0.895s] copying /home/ando/ros2_ws/src/mypkg/build/mypkg/build/lib/mypkg/__init__.py -> /home/ando/ros2_ws/src/mypkg/install/mypkg/lib/python3.12/site-packages/mypkg
+[0.895s] copying /home/ando/ros2_ws/src/mypkg/build/mypkg/build/lib/mypkg/listener.py -> /home/ando/ros2_ws/src/mypkg/install/mypkg/lib/python3.12/site-packages/mypkg
+[0.896s] byte-compiling /home/ando/ros2_ws/src/mypkg/install/mypkg/lib/python3.12/site-packages/mypkg/talker.py to talker.cpython-312.pyc
+[0.896s] byte-compiling /home/ando/ros2_ws/src/mypkg/install/mypkg/lib/python3.12/site-packages/mypkg/__init__.py to __init__.cpython-312.pyc
+[0.896s] byte-compiling /home/ando/ros2_ws/src/mypkg/install/mypkg/lib/python3.12/site-packages/mypkg/listener.py to listener.cpython-312.pyc
+[0.897s] running install_data
+[0.897s] creating /home/ando/ros2_ws/src/mypkg/install/mypkg/share/ament_index
+[0.897s] creating /home/ando/ros2_ws/src/mypkg/install/mypkg/share/ament_index/resource_index
+[0.897s] creating /home/ando/ros2_ws/src/mypkg/install/mypkg/share/ament_index/resource_index/packages
+[0.897s] copying resource/mypkg -> /home/ando/ros2_ws/src/mypkg/install/mypkg/share/ament_index/resource_index/packages
+[0.898s] copying package.xml -> /home/ando/ros2_ws/src/mypkg/install/mypkg/share/mypkg
+[0.898s] copying launch/talk_listen.launch.py -> /home/ando/ros2_ws/src/mypkg/install/mypkg/share/mypkg
+[0.898s] running install_egg_info
+[0.908s] Copying build/mypkg/mypkg.egg-info to /home/ando/ros2_ws/src/mypkg/install/mypkg/lib/python3.12/site-packages/mypkg-0.0.0-py3.12.egg-info
+[0.909s] running install_scripts
+[0.974s] Installing listener script to /home/ando/ros2_ws/src/mypkg/install/mypkg/lib/mypkg
+[0.975s] Installing talker script to /home/ando/ros2_ws/src/mypkg/install/mypkg/lib/mypkg
+[0.975s] writing list of installed files to '/home/ando/ros2_ws/src/mypkg/build/mypkg/install.log'
+[0.994s] Invoked command in '/home/ando/ros2_ws/src/mypkg' returned '0': CONDA_PROMPT_MODIFIER=(base) PYTHONPATH=/home/ando/ros2_ws/src/mypkg/build/mypkg/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ando/ros2_ws/src/mypkg/install/mypkg/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base build/mypkg build --build-base /home/ando/ros2_ws/src/mypkg/build/mypkg/build install --record /home/ando/ros2_ws/src/mypkg/build/mypkg/install.log --single-version-externally-managed install_data

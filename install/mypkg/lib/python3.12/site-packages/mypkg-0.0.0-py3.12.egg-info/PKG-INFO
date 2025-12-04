@@ -1,0 +1,8 @@
+Metadata-Version: 2.1
+Name: mypkg
+Version: 0.0.0
+Summary: a package for practice
+Maintainer: Yasushi Ando
+Maintainer-email: yasushigit@hogehoge.com
+License: BSD-3-Clause
+Provides-Extra: test
