@@ -8,7 +8,14 @@ dir=~
 cd $dir/ros2_ws
 colcon build
 source $dir/.bashrc
+#talkerのテスト
+timeout 3 ros2 run mypkg talker > /tmp/mypkg_single.log &
+sleep 1
+ros2 topic list | grep -q "/date"
+pkill -f talker
 timeout 5 ros2 launch mypkg talk_listen.launch.py > /tmp/mypkg.log
+#int16かを確認するよ
+ros2 topic info /date | grep -q "std_msgs/msg/Int16"
 
 cat /tmp/mypkg.log | grep 'Listen: 5'
 
