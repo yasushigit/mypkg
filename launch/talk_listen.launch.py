@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2025 Yasushi Ando　　
+# SPDX-License-Identifier: BSD-3-Clause
+
 import launch
 import launch.actions
 import launch.substitutions
