@@ -5,8 +5,6 @@
 talker ノードが一定周期で整数値をトピック「date」にパブリッシュし、
 listener ノードがその値を受信して現在の日付に加算し、計算後の日付と曜日を表示する。
 
-
-
 ## talker.py
 0.5秒ごとに16ビット符号つき整数をカウントしてトピック"date"を通じてパブリッシュ
 
@@ -16,7 +14,7 @@ listener ノードがその値を受信して現在の日付に加算し、計�
 その後，計算したd日後の日時と曜日をログとして表示
 
 ## talk_listen.launch.py
-talker.pyとlistener.pyを実行
+talker.pyとlistener.pyの両方を実行
 
 ## トピック
 ### date
