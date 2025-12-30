@@ -1,8 +1,10 @@
 # mypkg
 [![test](https://github.com/yasushigit/mypkg/actions/workflows/test.yml/badge.svg)]
 ### ロボットシステム学
-このリポジトリはtalkerとlistener間でそれぞれ通信を行うROS 2のパッケージです.
-talkerとlistener間ではトピック"date"を使用しています.
+このリポジトリは、ROS 2 における publish / subscribe 通信を学ぶためのパッケージである。
+talker ノードが一定周期で整数値をトピック「date」にパブリッシュし、
+listener ノードがその値を受信して現在の日付に加算し、計算後の日付と曜日を表示する。
+
 
 
 ## talker.py
