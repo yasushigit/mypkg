@@ -3,20 +3,44 @@
 
 import rclpy
 from rclpy.node import Node
-from std_msgs.msg import Int16
+from std_msgs.msg import Int32MultiArray
 
 rclpy.init()
-node = Node("talker")
-pub = node.create_publisher(Int16, "date", 10)
-n = 0
 
+node = Node("encoder_talker")
+pub = node.create_publisher(Int32MultiArray, "encoder/pulse", 10)
+
+# X, Y の現在値
+pulse_x = 0
+pulse_y = 0
+
+# 増減方向
+dir_x = 1
+dir_y = -1
+
+MAX_PULSE = 10
 
 def cb():
-    global n
-    msg = Int16()
-    msg.data = n
+    global pulse_x, pulse_y, dir_x, dir_y
+
+    # X方向エンコーダ
+    pulse_x += dir_x
+    if pulse_x >= MAX_PULSE or pulse_x <= -MAX_PULSE:
+        dir_x *= -1
+
+    # Y方向エンコーダ
+    pulse_y += dir_y
+    if pulse_y >= MAX_PULSE or pulse_y <= -MAX_PULSE:
+        dir_y *= -1
+
+    msg = Int32MultiArray()
+    msg.data = [pulse_x, pulse_y]
+
     pub.publish(msg)
-    n += 1
+
+    node.get_logger().info(
+        f"Publish encoder pulse: X={pulse_x}, Y={pulse_y}"
+    )
 
 
 def main():

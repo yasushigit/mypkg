@@ -1,12 +1,18 @@
 # mypkg
-[![test](https://github.com/yasushigit/mypkg/actions/workflows/test.yml/badge.svg)]
-### ロボットシステム学
+![test](https://github.com/yasushigit/mypkg/actions/workflows/test.yml/badge.svg)
+## ロボットシステム学
 このリポジトリは、ROS 2 における publish / subscribe 通信を学ぶためのパッケージである。
 talker ノードが一定周期で整数値をトピック「date」にパブリッシュし、
 listener ノードがその値を受信して現在の日付に加算し、計算後の日付と曜日を表示する。
 
-## talker.py
-0.5秒ごとに16ビット符号つき整数をカウントしてトピック"date"を通じてパブリッシュ
+## encoder_talker.py
+encoder_talker ノードは、
+2つの直交するエンコーダ（X方向・Y方向）から得られるパルス数を模擬的に生成し、
+ROS2のトピックとしてパブリッシュするノードです。
+
+本ノードは実機エンコーダの代わりに、
+一定周期で規則的に増減する分かりやすい値を出力することで、
+デバッグや学習用途、自己位置推定ノードの動作確認を目的としています。
 
 ## listener.py
 トピック"date"からのデータをサブスクライブしメッセージが含む数値(d)を日数として現在の日時に加算
@@ -128,5 +134,5 @@ $ ros2 launch mypkg talk_listen.launch.py
 ## ライセンス
 * このソフトウェアパッケージは，3条項BSDライセンスの下，再頒布および使用が許可されます．
 * このパッケージのコードは，下記のスライド（CC-BY-SA 4.0 by Ryuichi Ueda）のものを，本人の許可を得て自身の著作としたものです．
-* [ryuichiueda/my_slides robosys_2025](https://github.com/ryuichiueda/slides_marp/tree/master/robosys2025)
+* [ryuichiueda/my_slides/robosys_2025](https://github.com/ryuichiueda/slides_marp/tree/master/robosys2025)
 * © 2025 Yasushi Ando
