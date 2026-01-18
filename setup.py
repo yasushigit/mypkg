@@ -28,7 +28,7 @@ setup(
     entry_points={
         'console_scripts': [
             'encoder_talker = mypkg.encoder_talker:main', #encoder_talker.pyのmain関数という意味
-            'listener = mypkg.listener:main', #lisner.pyのmain関数という意味
+            'encoder_listener = mypkg.encoder_listener:main', #lisner.pyのmain関数という意味
         ],
     },
 )
