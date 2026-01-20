@@ -14,9 +14,8 @@ timeout 3 ros2 run mypkg encoder_talker > /tmp/mypkg_single.log &
 sleep 1
 ros2 topic list | grep -q "/encoder/pulse"
 pkill -f encoder_talker
-
 ros2 topic info /encoder/pulse | grep -q "std_msgs/msg/Int32MultiArray"
-
+timeout 5 ros2 launch mypkg talk_listen.launch.py > /tmp/mypkg.log
 cat /tmp/mypkg.log | grep -q "encoder_listener"
 
 #内容チェック
