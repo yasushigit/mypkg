@@ -80,11 +80,11 @@ data[0] : X 方向エンコーダのパルス増分
 data[1] : Y 方向エンコーダのパルス増分
 
 ### 計算内容
-'''
+```
 wheel_diameter = 0.06        # エンコーダに接続されたタイヤの直径[m]
 ppr = 100                   # 1回転あたりのパルス数
 dt = 0.5                    # エンコーダ値が送られてくる周期[s]
-'''
+```
 をパラメータとして用い、
 以下の式により移動距離を計算します。
 
@@ -97,6 +97,7 @@ distance = π × wheel_diameter × (pulse / ppr)
 
 ## 実行例
 ### encoder_talker実行端末
+```
 $~/ros2_ws$ ros2 run mypkg encoder_talker
 [INFO] [1768885357.995644578] [encoder_talker]: Publish encoder pulse: X=1, Y=-1
 [INFO] [1768885358.496925270] [encoder_talker]: Publish encoder pulse: X=2, Y=-2
@@ -108,9 +109,10 @@ $~/ros2_ws$ ros2 run mypkg encoder_talker
 [INFO] [1768885361.497332226] [encoder_talker]: Publish encoder pulse: X=8, Y=-8
 [INFO] [1768885361.997202227] [encoder_talker]: Publish encoder pulse: X=9, Y=-9
 [INFO] [1768885362.497656047] [encoder_talker]: Publish encoder pulse: X=10, Y=-10
+```
 
 ### encoder_listener実行端末
-'''
+```
 $~/ros2_ws$ ros2 run mypkg encoder_listener
 [INFO] [1768885357.995986124] [encoder_listener]: x=0.002 m, y=-0.002 m | vx=0.004 m/s, vy=-0.004 m/s
 [INFO] [1768885358.497501198] [encoder_listener]: x=0.006 m, y=-0.006 m | vx=0.008 m/s, vy=-0.008 m/s
@@ -131,7 +133,7 @@ $~/ros2_ws$ ros2 run mypkg encoder_listener
 [INFO] [1768885365.997699645] [encoder_listener]: x=0.183 m, y=-0.183 m | vx=0.011 m/s, vy=-0.011 m/s
 [INFO] [1768885366.500137271] [encoder_listener]: x=0.187 m, y=-0.187 m | vx=0.008 m/s, vy=-0.008 m/s
 [INFO] [1768885366.982358919] [encoder_listener]: x=0.188 m, y=-0.188 m | vx=0.004 m/s, vy=-0.004 m/s
-'''
+```
 
 ## 動作確認済み環境
 * Python 3.8.10
