@@ -2,7 +2,8 @@
 ![test](https://github.com/yasushigit/mypkg/actions/workflows/test.yml/badge.svg)
 ## ロボットシステム学
 このリポジトリは、ROS2における publish / subscribe 通信を用いて、  
-エンコーダのパルス情報から速度および自己位置（X, Y）を推定する
+エンコーダのパルス情報を送信する talker ノードと、  
+それを受信して速度および自己位置（X, Y）を推定する listener ノードからなる  
 ROS2パッケージである。
 
 2つの直交するエンコーダ（X 方向・Y 方向）を想定し、  
