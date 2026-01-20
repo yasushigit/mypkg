@@ -43,6 +43,7 @@ std_msgs/msg/Int32MultiArray
 
 ### データ内容
 data[0] : X 方向エンコーダのパルス増分
+
 data[1] : Y 方向エンコーダのパルス増分
 
 
