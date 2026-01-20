@@ -9,6 +9,8 @@ ROS2パッケージである。
 2つの直交するエンコーダ（X 方向・Y 方向）を想定し、  
 エンコーダのパルス数をトピックとして受信し、平面上の自己位置を計算する。
 
+動作確認用にlaunchファイルを用意してある。
+
 本パッケージは、  
 - エンコーダ処理
 - 基本的なロボットの位置計測
@@ -146,6 +148,6 @@ $~/ros2_ws$ ros2 run mypkg encoder_listener
 
 ## ライセンス
 * このソフトウェアパッケージは，3条項BSDライセンスの下，再頒布および使用が許可されます．
-* このパッケージのコードは，下記のスライド（CC-BY-SA 4.0 by Ryuichi Ueda）のものを，本人の許可を得て自身の著作としたものです．
+* このパッケージのコードは，下記のスライド（CC-BY-SA 4.0 by Ryuichi Ueda）のものを，本人の許可を得て自身の著作としたものです
 * [ryuichiueda/my_slides/robosys_2025](https://github.com/ryuichiueda/slides_marp/tree/master/robosys2025)
 * © 2025 Yasushi Ando
