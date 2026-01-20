@@ -78,6 +78,7 @@ std_msgs/msg/Int32MultiArray
 
 ### データ内容
 data[0] : X 方向エンコーダのパルス増分
+
 data[1] : Y 方向エンコーダのパルス増分
 
 ### 計算内容
@@ -149,7 +150,7 @@ $~/ros2_ws$ ros2 run mypkg encoder_listener
 * [ryuichiueda/ubuntu22.04-ros2](https://hub.docker.com/r/ryuichiueda/ubuntu22.04-ros2)
 
 
-## ライセンス
+## LICENSE
 * このソフトウェアパッケージは，3条項BSDライセンスの下，再頒布および使用が許可されます．
 * このパッケージのコードは，下記のスライド（CC-BY-SA 4.0 by Ryuichi Ueda）のものを，本人の許可を得て自身の著作としたものです
 * [ryuichiueda/my_slides/robosys_2025](https://github.com/ryuichiueda/slides_marp/tree/master/robosys2025)
