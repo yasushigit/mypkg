@@ -57,6 +57,18 @@ encoder_talkerノードからpublishされる
 エンコーダを用いた自己位置推定の基本的な考え方や、
 ROS2、subscribe処理の理解を目的としています。
 
+### 機能
+X 方向・Y 方向の直交する 2 つのエンコーダを想定している
+
+- /encoder/pulse トピックを subscribe
+- パルス数から移動距離を計算
+- 自己位置（x, y）および速度（vx, vy）を算出
+- 計算結果をログとして出力
+
+車体の回転はしないものとし、
+XY平面上のみを扱う簡易的な自己位置推定を行います。
+
+
 ## talk_listen.launch.py
 talker.pyとlistener.pyの両方を実行
 
