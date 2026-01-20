@@ -20,7 +20,7 @@ ros2 topic info /encoder/pulse | grep -q "std_msgs/msg/Int32MultiArray"
 cat /tmp/mypkg.log | grep -q "encoder_listener"
 
 #内容チェック
-judge=false
+judge=true
 
 for key in "x=" "y=" "vx=" "vy="; do
     if ! cat /tmp/mypkg.log | grep -q "$key"; then
