@@ -44,18 +44,15 @@ data[1] : Y 方向エンコーダのパルス増分
 
 
 ## encoder_listener.py
-encoder_listenerノードは、
-encoder_talkerノードからpublishされる
-2つの直交するエンコーダ（X方向・Y方向）のパルス数をsubscribeし、
-それらを用いて速度および自己位置（X, Y）を推定するノードです。
-
-受信したエンコーダのパルス増分をもとに、
-一定周期ごとに移動距離を計算し、
-現在の自己位置と速度を逐次更新します。
-
+encoder_listener ノードは、
+encoder_talker ノードなどから送信される
+2つの直交するエンコーダ（X方向・Y方向）のパルス数を受信し、
+速度および自己位置（XY座標）を推定するノードです。
 本ノードは、
-エンコーダを用いた自己位置推定の基本的な考え方や、
-ROS2、subscribe処理の理解を目的としています。
+エンコーダのパルス数から移動量・速度・位置を計算する処理を学ぶこと、
+および自己位置推定ノードの動作確認を目的としています。
+
+上のencoder_talkerとトピックなどの形式は同様であるが一応記載する。
 
 ### 機能
 X 方向・Y 方向の直交する 2 つのエンコーダを想定している
@@ -68,105 +65,69 @@ X 方向・Y 方向の直交する 2 つのエンコーダを想定している
 車体の回転はしないものとし、
 XY平面上のみを扱う簡易的な自己位置推定を行います。
 
+### Subscribe トピック
+/encoder/pulse
 
-## talk_listen.launch.py
-talker.pyとlistener.pyの両方を実行
+### メッセージ型
+std_msgs/msg/Int32MultiArray
 
-## トピック
-### date
- "talker.py" ノードが生成した16ビット符号つきの整数情報を "listener.py" ノードが受け取り，計算結果をログに表示するための通信経路
+### データ内容
+data[0] : X 方向エンコーダのパルス増分
+data[1] : Y 方向エンコーダのパルス増分
+
+### 計算内容
+'''
+wheel_diameter = 0.06        # エンコーダに接続されたタイヤの直径[m]
+ppr = 100                   # 1回転あたりのパルス数
+dt = 0.5                    # エンコーダ値が送られてくる周期[s]
+'''
+をパラメータとして用い、
+以下の式により移動距離を計算します。
+
+移動距離：
+distance = π × wheel_diameter × (pulse / pulses_per_revolution)
+
+計算された距離を積算することで、
+現在の自己位置 (x, y) を更新します。
+
 
 ## 実行例
-実行例の日にちは 2025/12/31 を想定
-### 例1 (端末2つ使用 , talker.pyを実行)
+### encoder_talker実行端末
+$~/ros2_ws$ ros2 run mypkg encoder_talker
+[INFO] [1768885357.995644578] [encoder_talker]: Publish encoder pulse: X=1, Y=-1
+[INFO] [1768885358.496925270] [encoder_talker]: Publish encoder pulse: X=2, Y=-2
+[INFO] [1768885358.981402227] [encoder_talker]: Publish encoder pulse: X=3, Y=-3
+[INFO] [1768885359.499791550] [encoder_talker]: Publish encoder pulse: X=4, Y=-4
+[INFO] [1768885359.997803704] [encoder_talker]: Publish encoder pulse: X=5, Y=-5
+[INFO] [1768885360.497660511] [encoder_talker]: Publish encoder pulse: X=6, Y=-6
+[INFO] [1768885360.997736651] [encoder_talker]: Publish encoder pulse: X=7, Y=-7
+[INFO] [1768885361.497332226] [encoder_talker]: Publish encoder pulse: X=8, Y=-8
+[INFO] [1768885361.997202227] [encoder_talker]: Publish encoder pulse: X=9, Y=-9
+[INFO] [1768885362.497656047] [encoder_talker]: Publish encoder pulse: X=10, Y=-10
 
-### 入力
-#### 端末1
-
-```
-$ ros2 run mypkg talker
-```
-
-#### 端末2
-
-```
-$ ros2 topic echo /date
-```
-
-### 出力
-
-```
-data: 25
----
-data: 26
----
-data: 27
----
-data: 28
----
-data: 29
----
-data: 30
-・・・
-```
-
-### 例2　(端末2つ使用 , talker.py & listener.pyを実行)
-
-### 入力
-#### 端末1
-
-```
-$ ros2 run mypkg talker
-```
-
-#### 端末2
-
-```
-$ ros2 run mypkg listener
-```
-
-### 出力
-
-```
-[INFO] [1767128581.142613371] [listener]: Listen: 2026/01/25 (Sun)
-[INFO] [1767128581.250973124] [listener]: Listen: 2026/01/26 (Mon)
-[INFO] [1767128581.750760767] [listener]: Listen: 2026/01/27 (Tue)
-[INFO] [1767128582.251229222] [listener]: Listen: 2026/01/28 (Wed)
-[INFO] [1767128582.751005887] [listener]: Listen: 2026/01/29 (Thu)
-[INFO] [1767128583.249274237] [listener]: Listen: 2026/01/30 (Fri)
-[INFO] [1767128583.748939215] [listener]: Listen: 2026/01/31 (Sat)
-・・・
-```
-
-### 例3　(端末1つ使用 , talker.py & listener.pyを実行)
-
-### 入力
-
-```
-$ ros2 launch mypkg talk_listen.launch.py
-```
-
-### 出力
-
-```
-[INFO] [launch]: All log files can be found below /home/ando/.ros/log/2025-12-31-06-04-01-899921-Aibou-108411
-[INFO] [launch]: Default logging verbosity is set to INFO
-[INFO] [talker-1]: process started with pid [108420]
-[INFO] [listener-2]: process started with pid [108421]
-[listener-2] [INFO] [1767128642.728476489] [listener]: Listen: 2025/12/31 (Wed)
-[listener-2] [INFO] [1767128644.081730058] [listener]: Listen: 2026/01/01 (Thu)
-[listener-2] [INFO] [1767128644.218563814] [listener]: Listen: 2026/01/02 (Fri)
-[listener-2] [INFO] [1767128644.718457101] [listener]: Listen: 2026/01/03 (Sat)
-[listener-2] [INFO] [1767128645.218427975] [listener]: Listen: 2026/01/04 (Sun)
-[listener-2] [INFO] [1767128645.718785431] [listener]: Listen: 2026/01/05 (Mon)
-[listener-2] [INFO] [1767128646.217349262] [listener]: Listen: 2026/01/06 (Tue)
-[listener-2] [INFO] [1767128646.719279472] [listener]: Listen: 2026/01/07 (Wed)
-[listener-2] [INFO] [1767128647.217952197] [listener]: Listen: 2026/01/08 (Thu)
-[listener-2] [INFO] [1767128647.718189986] [listener]: Listen: 2026/01/09 (Fri)
-[listener-2] [INFO] [1767128648.219108621] [listener]: Listen: 2026/01/10 (Sat)
-[listener-2] [INFO] [1767128648.718777581] [listener]: Listen: 2026/01/11 (Sun)
-```
-
+### encoder_listener実行端末
+'''
+$~/ros2_ws$ ros2 run mypkg encoder_listener
+[INFO] [1768885357.995986124] [encoder_listener]: x=0.002 m, y=-0.002 m | vx=0.004 m/s, vy=-0.004 m/s
+[INFO] [1768885358.497501198] [encoder_listener]: x=0.006 m, y=-0.006 m | vx=0.008 m/s, vy=-0.008 m/s
+[INFO] [1768885358.982017924] [encoder_listener]: x=0.011 m, y=-0.011 m | vx=0.011 m/s, vy=-0.011 m/s
+[INFO] [1768885359.500602895] [encoder_listener]: x=0.019 m, y=-0.019 m | vx=0.015 m/s, vy=-0.015 m/s
+[INFO] [1768885359.998784580] [encoder_listener]: x=0.028 m, y=-0.028 m | vx=0.019 m/s, vy=-0.019 m/s
+[INFO] [1768885360.498874051] [encoder_listener]: x=0.040 m, y=-0.040 m | vx=0.023 m/s, vy=-0.023 m/s
+[INFO] [1768885360.998739622] [encoder_listener]: x=0.053 m, y=-0.053 m | vx=0.026 m/s, vy=-0.026 m/s
+[INFO] [1768885361.497633837] [encoder_listener]: x=0.068 m, y=-0.068 m | vx=0.030 m/s, vy=-0.030 m/s
+[INFO] [1768885361.997441269] [encoder_listener]: x=0.085 m, y=-0.085 m | vx=0.034 m/s, vy=-0.034 m/s
+[INFO] [1768885362.498254282] [encoder_listener]: x=0.104 m, y=-0.104 m | vx=0.038 m/s, vy=-0.038 m/s
+[INFO] [1768885362.982014151] [encoder_listener]: x=0.121 m, y=-0.121 m | vx=0.034 m/s, vy=-0.034 m/s
+[INFO] [1768885363.499547796] [encoder_listener]: x=0.136 m, y=-0.136 m | vx=0.030 m/s, vy=-0.030 m/s
+[INFO] [1768885363.998186663] [encoder_listener]: x=0.149 m, y=-0.149 m | vx=0.026 m/s, vy=-0.026 m/s
+[INFO] [1768885364.487707779] [encoder_listener]: x=0.160 m, y=-0.160 m | vx=0.023 m/s, vy=-0.023 m/s
+[INFO] [1768885364.999831726] [encoder_listener]: x=0.170 m, y=-0.170 m | vx=0.019 m/s, vy=-0.019 m/s
+[INFO] [1768885365.500031085] [encoder_listener]: x=0.177 m, y=-0.177 m | vx=0.015 m/s, vy=-0.015 m/s
+[INFO] [1768885365.997699645] [encoder_listener]: x=0.183 m, y=-0.183 m | vx=0.011 m/s, vy=-0.011 m/s
+[INFO] [1768885366.500137271] [encoder_listener]: x=0.187 m, y=-0.187 m | vx=0.008 m/s, vy=-0.008 m/s
+[INFO] [1768885366.982358919] [encoder_listener]: x=0.188 m, y=-0.188 m | vx=0.004 m/s, vy=-0.004 m/s
+'''
 
 ## 動作確認済み環境
 * Python 3.8.10
