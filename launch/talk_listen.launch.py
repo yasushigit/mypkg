@@ -9,14 +9,14 @@ import launch_ros.actions
 
 def generate_launch_description():
    
-   talker = launch_ros.actions.Node(
+   encoder_talker = launch_ros.actions.Node(
      package='mypkg',      #パッケージの名前を指定
-     executable='talker',  #実行するファイルの指定
+     executable='encoder_talker',  #実行するファイルの指定
      )
-   listener = launch_ros.actions.Node(
+   encoder_listener = launch_ros.actions.Node(
      package='mypkg',
-     executable='listener',
+     executable='encoder_listener',
      output='screen'        #ログを端末に出すための設定
      )
    
-   return launch.LaunchDescription([talker, listener])
+   return launch.LaunchDescription([encoder_talker, encoder_listener])
