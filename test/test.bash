@@ -8,27 +8,22 @@ dir=~
 cd $dir/ros2_ws
 colcon build
 source $dir/.bashrc
-#talkerのテスト
-timeout 3 ros2 run mypkg talker > /tmp/mypkg_single.log &
+
+#テスト
+timeout 3 ros2 run mypkg encoder_talker > /tmp/mypkg_single.log &
 sleep 1
-ros2 topic list | grep -q "/date"
-pkill -f talker
-timeout 5 ros2 launch mypkg talk_listen.launch.py > /tmp/mypkg.log
-#int16かを確認するよ
-ros2 topic info /date | grep -q "std_msgs/msg/Int16"
+ros2 topic list | grep -q "/encoder/pulse"
+pkill -f encoder_talker
 
-cat /tmp/mypkg.log | grep 'Listen: 5'
+ros2 topic info /encoder/pulse | grep -q "std_msgs/msg/Int32MultiArray"
 
-timeout 5 ros2 launch mypkg talk_listen.launch.py > /tmp/mypkg.log
+cat /tmp/mypkg.log | grep -q "encoder_listener"
 
-cat /tmp/mypkg.log 
-
+#内容チェック
 judge=false
 
-for day in Mon Tue Wed Thu Fri Sat Sun; do
-    if cat /tmp/mypkg.log | grep -q " ($day)"; then
-        judge=true
-    else
+for key in "x=" "y=" "vx=" "vy="; do
+    if ! cat /tmp/mypkg.log | grep -q "$key"; then
         judge=false
         break
     fi
